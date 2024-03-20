@@ -23,21 +23,28 @@ public class CrapsGame {
 
     public static void gameRules() {
         System.out.println(
-                "\n[Craps Rules]\n" +
-                "- An even money bet, made on the first roll of the dice (known as the “come out roll”).\n" +
-                "- You win if a 7 or 11 roll, or lose if 2, 3, or 12 roll (known as “craps”).\n" +
-                "- Any other number that rolls becomes the “point” and the point must roll again before a 7 to win.\n");
+                "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" +
+                "                                   [Craps Rules]\n" +
+                "   - An even money bet, made on the first roll of the dice (known as the “come out roll”).\n" +
+                "   - You win if a 7 or 11 roll, or lose if 2, 3, or 12 roll (known as “craps”).\n" +
+                "   - Any other number that rolls becomes the “point” and the point must roll again before a 7 to win.\n" +
+                "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
     }
 
     public static void comeOutRoll() {
         System.out.println("Place your bet on the Pass Line: ");
         int playerBet = scan.nextInt();
         if (playerBet >= 10) {
-            System.out.println("Please Roll the dice:\n[roll]");
+            System.out.println(
+                    "\n-----------------------\n" +
+                    "Please Roll the dice:\n[roll]");
             CrapsPlayer.userRoll();
+            System.out.println(
+                    "-----------------------\n");
+            diceImage();
         }
         comeOutRoll = CrapsPlayer.diceRoll();
-        System.out.println("\nYou rolled a " + comeOutRoll + "\n");
+        System.out.println("You rolled a " + comeOutRoll + "\n");
     }
 
     public static boolean winningRoll() {
@@ -58,12 +65,17 @@ public class CrapsGame {
 
     public static void pointRoll() {
         if (comeOutRoll == 4 || comeOutRoll == 5 || comeOutRoll == 6 || comeOutRoll == 8 || comeOutRoll == 9 || comeOutRoll == 10) {
-            System.out.println("You rolled a point number, Roll again.\n");
+            System.out.println("You rolled a point number, Roll again.");
             int pointDiceRoll = CrapsPlayer.diceRoll();
             while (pointDiceRoll != comeOutRoll || pointDiceRoll != 7) {
 
-                System.out.println("\nPlease Roll the dice:\n[roll]");
+                System.out.println(
+                        "\n-----------------------\n" +
+                        "Please Roll the dice:\n[roll]");
                 CrapsPlayer.userRoll();
+                System.out.println(
+                        "-----------------------\n");
+                diceImage();
 
                 int repeatDiceRoll = CrapsPlayer.diceRoll();
 
@@ -78,7 +90,7 @@ public class CrapsGame {
                 System.out.println(
                         "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" +
                         "You rolled a " + repeatDiceRoll + " which is not " + comeOutRoll + " or 7, Roll again." +
-                        "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                        "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 
             }
         }
@@ -116,6 +128,19 @@ public class CrapsGame {
 
     public static void gameStart() {
 
+    }
+
+    public static void diceImage() {
+        System.out.println(
+                "               (( _______\n" +
+                        "     _______     /\\O    O\\\n" +
+                        "    /O     /\\   /  \\      \\\n" +
+                        "   /   O  /O \\ / O  \\O____O\\ ))\n" +
+                        "((/_____O/    \\\\    /O     /\n" +
+                        "  \\O    O\\    / \\  /   O  /\n" +
+                        "   \\O    O\\ O/   \\/_____O/\n" +
+                        "    \\O____O\\/ ))          ))\n" +
+                        "  ((\n");
     }
 
 }
