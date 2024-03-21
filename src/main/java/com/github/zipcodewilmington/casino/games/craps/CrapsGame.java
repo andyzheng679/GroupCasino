@@ -8,10 +8,9 @@ public class CrapsGame {
     private static final IOConsole console = new IOConsole(AnsiColor.CYAN);
     public static int comeOutRoll;
     public static int repeatDiceRoll;
-    public static int playerBet;
+    public static double playerBet;
     public static boolean playerWins = false;
     public static boolean playerLoses = false;
-    public static double userBalance = 500;
 
 
     public static void main(String[] args) {
@@ -52,7 +51,7 @@ public class CrapsGame {
     public static int comeOutRoll() {
 
         console.println("[Your current balance: " + CrapsPlayer.playerBalance + "]");
-        playerBet = console.getIntegerInput("Place your bet on the Pass Line: [Minimum Bet $10]"); //this will be through wager method.
+        playerBet = console.getDoubleInput("Place your bet on the Pass Line: [Minimum Bet $10]"); //this will be through wager method.
 
         if (playerBet >= 10) {      // if player wager is greater than or equal to 10 continue the game
             CrapsPlayer.userInputRoll();
@@ -65,7 +64,7 @@ public class CrapsGame {
             System.out.println("You rolled a {" + comeOutRoll + "}\n");
         }
         if (playerBet < 10) {
-            System.out.println("You can't wager less then $10.");
+            System.out.println("{You can't wager less then $10.}");
             comeOutRoll();
         }
         return 0;
@@ -73,8 +72,9 @@ public class CrapsGame {
 
     public static boolean winningRoll() {
         if (comeOutRoll == 7 || comeOutRoll == 11 || comeOutRoll == repeatDiceRoll) {
-            int playerWinnings = playerBet * 2;
-            System.out.println("\nYou won $" + playerWinnings +"!\n");
+            double playerWinnings = playerBet * 2;
+            CrapsPlayer.playerBalance += playerWinnings;
+            console.println("You won! Winnings: [" + playerWinnings + "] Current Balance: [" + CrapsPlayer.playerBalance + "]");
             return playerWins = true;
         }
         return false;
@@ -82,7 +82,8 @@ public class CrapsGame {
 
     public static boolean losingRoll() {
         if (comeOutRoll == 2 || comeOutRoll == 3 || comeOutRoll == 12 || repeatDiceRoll == 7 && comeOutRoll != 7) {
-            System.out.println("\nYou lost!\n");
+            CrapsPlayer.playerBalance -= playerBet;
+            console.println("You lost! [Current Balance: " + CrapsPlayer.playerBalance + "]");
             return playerLoses = true;
         }
         return false;
@@ -127,7 +128,7 @@ public class CrapsGame {
 
     public static void diceImage() {
         System.out.println(
-                "               (( _______\n" +
+                        "               (( _______\n" +
                         "     _______     /\\O    O\\\n" +
                         "    /O     /\\   /  \\      \\\n" +
                         "   /  O   /O \\ / O  \\O____O\\ ))\n" +
@@ -151,16 +152,18 @@ public class CrapsGame {
             System.out.println("Dice: [" + diceOne + "] Dice: [" + diceTwo + "]");
 
             if (repeatDiceRoll == comeOutRoll) {
-                System.out.println("You rolled a {" + repeatDiceRoll + "}");
-                break;
+                CrapsPlayer.playerBalance += playerBet + playerBet;
+                System.out.println("Your first Bet: " + playerBet + " Your winnings: " + CrapsPlayer.playerBalance);
+                CrapsGame.gameStart();
             } else if (repeatDiceRoll == 7){
-                System.out.println("You rolled a {" + repeatDiceRoll + "}");
-                break;
+                CrapsPlayer.playerBalance -= playerBet;
+                console.println("You rolled a {" + repeatDiceRoll + "} You lost! [Current Balance: " + CrapsPlayer.playerBalance + "]");
+                CrapsGame.gameStart();
             }
 
-            System.out.println(
+            console.println(
                     "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" +
-                            "You rolled a " + repeatDiceRoll + " which is not " + comeOutRoll + " or 7, Roll again." +
+                            "You rolled a {" + repeatDiceRoll + "} which is not {" + comeOutRoll + "} or 7, Roll again." +
                             "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
 
         }
