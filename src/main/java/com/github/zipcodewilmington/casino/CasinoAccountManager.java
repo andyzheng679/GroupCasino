@@ -1,4 +1,7 @@
 package com.github.zipcodewilmington.casino;
+import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.IOConsole;
+
 
 /**
  * Created by leon on 7/21/2020.
@@ -11,7 +14,11 @@ public class CasinoAccountManager {
      * @param accountPassword password of account to be returned
      * @return `ArcadeAccount` with specified `accountName` and `accountPassword`
      */
+    private final IOConsole console = new IOConsole(AnsiColor.BLUE);
+
+
     public CasinoAccount getAccount(String accountName, String accountPassword) {
+
         String currentMethodName = new Object(){}.getClass().getEnclosingMethod().getName();
         String currentClassName = getClass().getName();
         String errorMessage = "Method with name [ %s ], defined in class with name [ %s ] has  not yet been implemented";

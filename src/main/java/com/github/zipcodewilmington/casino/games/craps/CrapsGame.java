@@ -1,98 +1,100 @@
 package com.github.zipcodewilmington.casino.games.craps;
 
-import java.util.Objects;
-import java.util.Random;
-import java.util.Scanner;
+import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.IOConsole;
 
-import static com.github.zipcodewilmington.casino.games.craps.CrapsPlayer.rollsDiceOption;
 
 public class CrapsGame {
-    public static Scanner scan = new Scanner(System.in);
+    private static final IOConsole console = new IOConsole(AnsiColor.CYAN);
     public static int comeOutRoll;
+    public static int repeatDiceRoll;
+    public static int playerBet;
+    public static boolean playerWins = false;
+    public static boolean playerLoses = false;
+    public static double userBalance = 500;
+
 
     public static void main(String[] args) {
 
+        gameStart();
+
+        // add new method that loops the game back to a menu that shows account info and
+        // an option to go back to main menu.
+
+    }
+
+    public static void gameStart() {    // temporary
+
+        playerWins = false;
+        playerLoses = false;
+
         gameRules();
         comeOutRoll();
+        pointRoll();
 
         winningRoll();
         losingRoll();
-        pointRoll();
+
+        gameStart();
 
     }
 
     public static void gameRules() {
-        System.out.println(
-                "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" +
-                "                                   [Craps Rules]\n" +
-                "   - An even money bet, made on the first roll of the dice (known as the “come out roll”).\n" +
-                "   - You win if a 7 or 11 roll, or lose if 2, 3, or 12 roll (known as “craps”).\n" +
-                "   - Any other number that rolls becomes the “point” and the point must roll again before a 7 to win.\n" +
-                "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+        console.println(
+                "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" +
+                "|                                  [Craps Rules]                                                    |\n" +
+                "| - An even money bet, made on the first roll of the dice (known as the “come out roll”).           |\n" +
+                "| - You win if a 7 or 11 roll, or lose if 2, 3, or 12 roll (known as “craps”).                      |\n" +
+                "| - Any other number that rolls becomes the “point” and the point must roll again before a 7 to win.|\n" +
+                "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
     }
 
-    public static void comeOutRoll() {
-        System.out.println("Place your bet on the Pass Line: ");
-        int playerBet = scan.nextInt();
-        if (playerBet >= 10) {
-            System.out.println(
-                    "\n-----------------------\n" +
-                    "Please Roll the dice:\n[roll]");
-            CrapsPlayer.userRoll();
-            System.out.println(
-                    "-----------------------\n");
+    public static int comeOutRoll() {
+
+        console.println("[Your current balance: " + CrapsPlayer.playerBalance + "]");
+        playerBet = console.getIntegerInput("Place your bet on the Pass Line: [Minimum Bet $10]"); //this will be through wager method.
+
+        if (playerBet >= 10) {      // if player wager is greater than or equal to 10 continue the game
+            CrapsPlayer.userInputRoll();
             diceImage();
+
+            comeOutRoll = CrapsPlayer.diceRoll();
+            int diceOne = CrapsPlayer.dieOne;
+            int diceTwo = CrapsPlayer.dieTwo;
+            System.out.println("Dice: [" + diceOne + "] Dice: [" + diceTwo + "]");
+            System.out.println("You rolled a {" + comeOutRoll + "}\n");
         }
-        comeOutRoll = CrapsPlayer.diceRoll();
-        System.out.println("You rolled a " + comeOutRoll + "\n");
+        if (playerBet < 10) {
+            System.out.println("You can't wager less then $10.");
+            comeOutRoll();
+        }
+        return 0;
     }
 
     public static boolean winningRoll() {
-        if (comeOutRoll == 7 || comeOutRoll == 11) {
-            System.out.println("You win!\n");
-            return true;
+        if (comeOutRoll == 7 || comeOutRoll == 11 || comeOutRoll == repeatDiceRoll) {
+            int playerWinnings = playerBet * 2;
+            System.out.println("\nYou won $" + playerWinnings +"!\n");
+            return playerWins = true;
         }
         return false;
     }
 
     public static boolean losingRoll() {
-        if (comeOutRoll == 2 || comeOutRoll == 3 || comeOutRoll == 12) {
-            System.out.println("You lose!\n");
-            return true;
+        if (comeOutRoll == 2 || comeOutRoll == 3 || comeOutRoll == 12 || repeatDiceRoll == 7 && comeOutRoll != 7) {
+            System.out.println("\nYou lost!\n");
+            return playerLoses = true;
         }
         return false;
     }
 
     public static void pointRoll() {
         if (comeOutRoll == 4 || comeOutRoll == 5 || comeOutRoll == 6 || comeOutRoll == 8 || comeOutRoll == 9 || comeOutRoll == 10) {
-            System.out.println("You rolled a point number, Roll again.");
-            int pointDiceRoll = CrapsPlayer.diceRoll();
-            while (pointDiceRoll != comeOutRoll || pointDiceRoll != 7) {
+            System.out.println("You rolled a point number!");
 
-                System.out.println(
-                        "\n-----------------------\n" +
-                        "Please Roll the dice:\n[roll]");
-                CrapsPlayer.userRoll();
-                System.out.println(
-                        "-----------------------\n");
-                diceImage();
+            CrapsPlayer.secondaryWagerOption();
+            CrapsPlayer.secondaryWager();
 
-                int repeatDiceRoll = CrapsPlayer.diceRoll();
-
-                if (repeatDiceRoll == comeOutRoll) {
-                    System.out.println("\nYou rolled a " + repeatDiceRoll);
-                    break;
-                } else if (repeatDiceRoll == 7){
-                    System.out.println("\nYou rolled a " + repeatDiceRoll);
-                    break;
-                }
-
-                System.out.println(
-                        "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" +
-                        "You rolled a " + repeatDiceRoll + " which is not " + comeOutRoll + " or 7, Roll again." +
-                        "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-
-            }
         }
     }
             /*
@@ -108,7 +110,7 @@ public class CrapsGame {
             /*
             you can set a pass line odds bet:
             ----------------------------------
-            (An additional bet that user will role the point number again)
+            (An additional bet that user will roll the point number again)
             4 & 10 pays 2:1 (x2)
             5 & 9 pays 3:2  (x2.5) return (1.5)
             6 & 8 pays 6:5  (x2.2) return (1.2)
@@ -122,25 +124,46 @@ public class CrapsGame {
     5 & 9 pays 3:2  (x2.5) return (1.5)
     6 & 8 pays 6:5  (x2.2) return (1.2)
     */
-    public static void endGameOption() {
-
-    }
-
-    public static void gameStart() {
-
-    }
 
     public static void diceImage() {
         System.out.println(
                 "               (( _______\n" +
                         "     _______     /\\O    O\\\n" +
                         "    /O     /\\   /  \\      \\\n" +
-                        "   /   O  /O \\ / O  \\O____O\\ ))\n" +
+                        "   /  O   /O \\ / O  \\O____O\\ ))\n" +
                         "((/_____O/    \\\\    /O     /\n" +
                         "  \\O    O\\    / \\  /   O  /\n" +
                         "   \\O    O\\ O/   \\/_____O/\n" +
                         "    \\O____O\\/ ))          ))\n" +
                         "  ((\n");
+    }
+
+    public static void pointRollDice() {
+        int pointDiceRoll = CrapsPlayer.diceRoll();
+        while (pointDiceRoll != comeOutRoll || pointDiceRoll != 7 || pointDiceRoll != CrapsPlayer.pointNumber) {
+
+            CrapsPlayer.userInputRoll();
+            diceImage();
+
+            repeatDiceRoll = CrapsPlayer.diceRoll();
+            int diceOne = CrapsPlayer.dieOne;
+            int diceTwo = CrapsPlayer.dieTwo;
+            System.out.println("Dice: [" + diceOne + "] Dice: [" + diceTwo + "]");
+
+            if (repeatDiceRoll == comeOutRoll) {
+                System.out.println("You rolled a {" + repeatDiceRoll + "}");
+                break;
+            } else if (repeatDiceRoll == 7){
+                System.out.println("You rolled a {" + repeatDiceRoll + "}");
+                break;
+            }
+
+            System.out.println(
+                    "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" +
+                            "You rolled a " + repeatDiceRoll + " which is not " + comeOutRoll + " or 7, Roll again." +
+                            "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+
+        }
     }
 
 }
