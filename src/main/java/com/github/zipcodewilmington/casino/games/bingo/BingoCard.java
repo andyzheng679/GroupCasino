@@ -4,11 +4,12 @@ package com.github.zipcodewilmington.casino.games.bingo;
 import java.util.Random;
 
 public class BingoCard {
-    private final int BOARD_SIZE = 5;
+    private int BOARD_SIZE = 5;
     Integer[][] bingoCard;
     String[][] markedCard;
     Random rand = new Random();
     BingoBoard initializedboard = new BingoBoard();
+    String symbol = "X";
 
     public BingoCard() {
         this.bingoCard = new Integer[BOARD_SIZE][BOARD_SIZE];
@@ -17,7 +18,7 @@ public class BingoCard {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 if(i == 2 && j==2){
                     this.bingoCard[i][j] = 0;
-                    this.markedCard[i][j] = "X";
+                    this.markedCard[i][j] = symbol;
                     continue;
                 }
                 int addFactor = (j * 15) + 1;
@@ -33,6 +34,20 @@ public class BingoCard {
 
         }
     }
+
+    public void markNumber(int number){
+        // in marked number first i have to take random number
+        // then check if there is number in the board
+        // and if yes mark it with X
+
+
+
+    }
+
+    public boolean checkBingo(){
+        return true;
+    }
+
     // checkBingo();
     // MarkNumber(int number);
     // Override toString() to print the card
