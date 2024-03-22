@@ -6,6 +6,8 @@ import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
 import com.github.zipcodewilmington.casino.games.Backjack.Blackjack;
 import com.github.zipcodewilmington.casino.games.Backjack.BlackjackPlayer;
+import com.github.zipcodewilmington.casino.games.Roulette.RouletteGame;
+import com.github.zipcodewilmington.casino.games.Roulette.RoulettePlayer;
 import com.github.zipcodewilmington.casino.games.bingo.Bingo;
 import com.github.zipcodewilmington.casino.games.bingo.BingoPlayer;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessGame;
@@ -14,6 +16,7 @@ import com.github.zipcodewilmington.casino.games.slots.SlotsGame;
 import com.github.zipcodewilmington.casino.games.slots.SlotsPlayer;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
+
 
 /**
  * Created by leon on 7/21/2020.
@@ -43,6 +46,8 @@ public class Casino implements Runnable {
                             play(new Blackjack(casinoAccount, null), new BlackjackPlayer(casinoAccount));
                         } else if (gameSelectionInput.equals("BINGO")) {
                             play(new Bingo(), new BingoPlayer(casinoAccount));
+                        } else if (gameSelectionInput.equals("ROULETTE")) {
+                            play(new RouletteGame(casinoAccount, null), new RoulettePlayer(casinoAccount));
                         } else if (gameSelectionInput.equals("EXIT")) {
                             break;
                         } else {
@@ -79,7 +84,7 @@ public class Casino implements Runnable {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Game Selection Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t[ SLOTS ], [ NUMBERGUESS ], [ BLACKJACK ], [BINGO], [EXIT]")
+                .append("\n\t[ SLOTS ], [ NUMBERGUESS ], [ BLACKJACK ], [BINGO], [ROULETTE], [EXIT]")
                 .toString());
     }
 
