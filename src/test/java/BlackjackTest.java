@@ -1,3 +1,4 @@
+import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.games.Backjack.Blackjack;
 import com.github.zipcodewilmington.casino.games.Backjack.BlackjackPlayer;
 import com.github.zipcodewilmington.casino.games.Backjack.Cards;
@@ -17,8 +18,14 @@ public class BlackjackTest {
 
     @Before
     public void setUp() {
-        blackjack = new Blackjack();
-        player = new BlackjackPlayer();
+        // Create dummy casino accounts for testing
+        CasinoAccount testPlayerAccount = new CasinoAccount("test1", "pass");
+        CasinoAccount testDealerAccount = new CasinoAccount("text2", "pass");
+
+
+        blackjack = new Blackjack(testPlayerAccount, testDealerAccount);
+
+        player = new BlackjackPlayer(testPlayerAccount);
     }
 
     @Test
@@ -44,22 +51,20 @@ public class BlackjackTest {
 
     @Test
     public void getWinner_PlayerWins_DealerBust() {
-        blackjack = new Blackjack();
-
         ArrayList<Cards> playerHand = new ArrayList<>();
         playerHand.add(Cards.TEN);
-        playerHand.add(Cards.TEN);
+        playerHand.add(Cards.TEN); // Player has 20
         blackjack.player.playerHand = playerHand;
 
+        // Set up dealer hand to simulate a bust
         ArrayList<Cards> dealerHand = new ArrayList<>();
         dealerHand.add(Cards.NINE);
-        dealerHand.add(Cards.EIGHT); // Dealer has >= 17
+        dealerHand.add(Cards.SIX);
+        dealerHand.add(Cards.SEVEN); // Dealer busts with 22
         blackjack.dealer.playerHand = dealerHand;
 
-        // Act
         boolean result = blackjack.getWinner();
 
-        // Assert
         Assert.assertTrue(result);
     }
 
@@ -92,24 +97,22 @@ public class BlackjackTest {
 
     @Test
     public void testHitOrStandStand() {
-
-        String input = "stand\n";
-        Scanner scanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        BlackjackPlayer player = new BlackjackPlayer(scanner);
+        String input = "stand\n"; // User input simulated as "stand"
+        Scanner scanner = new Scanner(new ByteArrayInputStream(input.getBytes())); // Create a Scanner that uses the input
+        BlackjackPlayer player = new BlackjackPlayer(scanner); // Pass the scanner to the player
 
         // Execute & Assert
-        Assert.assertFalse(player.hitOrStand());
+        Assert.assertFalse(player.hitOrStand(scanner));
     }
 
     @Test
     public void testHitOrStandHit() {
-
         String input = "hit\n";
         Scanner scanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        BlackjackPlayer player = new BlackjackPlayer(scanner);
+        BlackjackPlayer player = new BlackjackPlayer(scanner); 
 
         // Execute & Assert
-        Assert.assertTrue(player.hitOrStand());
+        Assert.assertTrue(player.hitOrStand(scanner));
     }
 
     @Test

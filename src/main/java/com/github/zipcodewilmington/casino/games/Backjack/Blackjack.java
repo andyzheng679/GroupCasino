@@ -10,20 +10,35 @@ public class Blackjack implements GameInterface {
     public BlackjackPlayer player;
     public BlackjackPlayer dealer;
     private DeckofCards deck;
+    private CasinoAccount casinoAccount;
 
-    public Blackjack(){
-        this.player = new BlackjackPlayer();
-        this.dealer = new BlackjackPlayer();
+    public Blackjack(CasinoAccount playerAccount, CasinoAccount dealerAccount) {
+        this.player = new BlackjackPlayer(playerAccount);
+        this.dealer = new BlackjackPlayer(dealerAccount);
         this.deck = new DeckofCards();
-
     }
 
     @Override
     public void run() {
-        Scanner scanner = new Scanner(System.in);  // Scanner for player input
+        Scanner scanner = new Scanner(System.in);
         boolean playAgain = true;
 
         while (playAgain) {
+            System.out.println("Your current balance: " + player.getArcadeAccount().getAccountBalance());
+            System.out.print("Enter your bet amount: ");
+            double betAmount;
+            try {
+                betAmount = Double.parseDouble(scanner.nextLine());
+                while (betAmount > player.getArcadeAccount().getAccountBalance()) {
+                    System.out.println("Insufficient balance. Please enter a lower bet.");
+                    betAmount = Double.parseDouble(scanner.nextLine());
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                continue;
+            }
+            player.getArcadeAccount().setAccountBalance(player.getArcadeAccount().getAccountBalance() - betAmount);
+
             deck.resetDeck(); // Prepare a new deck for the game
             player.playerHand.clear(); // Reset player's hand
             dealer.playerHand.clear(); // Reset dealer's hand
@@ -42,7 +57,7 @@ public class Blackjack implements GameInterface {
             boolean playerBusted = false;
             boolean playerTurn = true;
             while (playerTurn && !playerBusted) {
-                if (player.sumOfHand() < 21 && player.hitOrStand()) {
+                if (player.sumOfHand() < 21 && player.hitOrStand(scanner)) {
                     player.playerHand.add(deck.drawCard());
                     System.out.println("Your hand: " + player.playerHand);
                     if (player.sumOfHand() > 21) {
@@ -62,21 +77,25 @@ public class Blackjack implements GameInterface {
             }
 
             // Determine and announce the winner
+            boolean dealerBusted = dealer.sumOfHand() > 21;
+
             if (playerBusted || (!playerBusted && !getWinner())) {
-                System.out.println("Dealer wins!");
+                System.out.println("Dealer wins! You lost " + betAmount + " units.");
             } else {
-                System.out.println("You win!");
+                double winnings = betAmount * 2; // Or other payout rate
+                System.out.println("You win! You gained " + winnings + " units.");
+                player.getArcadeAccount().setAccountBalance(player.getArcadeAccount().getAccountBalance() + winnings);
             }
 
             // Ask if the player wants to play another round
             System.out.println("Do you want to play another round? (yes/no): ");
-            String answer = scanner.nextLine().trim().toLowerCase();
+            String answer = scanner.nextLine().trim().toLowerCase(); // Using nextLine to avoid input issues
             if (!"yes".equals(answer)) {
                 playAgain = false;
             }
         }
 
-        scanner.close(); // Close scanner at the end of the game
+
     }
 
     public boolean getWinner() {
@@ -86,12 +105,9 @@ public class Blackjack implements GameInterface {
         if (playerHandValue > 21) {
             return false;
         }
-
         if (dealerHandValue > 21) {
             return true;
         }
-
         return playerHandValue > dealerHandValue;
     }
 }
-
