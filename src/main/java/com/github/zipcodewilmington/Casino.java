@@ -4,16 +4,26 @@ import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.CasinoAccountManager;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
+
 //import com.github.zipcodewilmington.casino.games.Backjack.Blackjack;
 //import com.github.zipcodewilmington.casino.games.Backjack.BlackjackPlayer;
 import com.github.zipcodewilmington.casino.games.craps.CrapsGame;
 import com.github.zipcodewilmington.casino.games.craps.CrapsPlayer;
+
+import com.github.zipcodewilmington.casino.games.Backjack.Blackjack;
+import com.github.zipcodewilmington.casino.games.Backjack.BlackjackPlayer;
+import com.github.zipcodewilmington.casino.games.Roulette.RouletteGame;
+import com.github.zipcodewilmington.casino.games.Roulette.RoulettePlayer;
+import com.github.zipcodewilmington.casino.games.bingo.Bingo;
+import com.github.zipcodewilmington.casino.games.bingo.BingoPlayer;
+
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessGame;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessPlayer;
 import com.github.zipcodewilmington.casino.games.slots.SlotsGame;
 import com.github.zipcodewilmington.casino.games.slots.SlotsPlayer;
 import com.github.zipcodewilmington.utils.AnsiColor;
 import com.github.zipcodewilmington.utils.IOConsole;
+
 
 /**
  * Created by leon on 7/21/2020.
@@ -38,6 +48,7 @@ public class Casino implements Runnable {
                         if (gameSelectionInput.equals("SLOTS")) {
                             play(new SlotsGame(), new SlotsPlayer());
                         } else if (gameSelectionInput.equals("NUMBERGUESS")) {
+
                             play(new NumberGuessGame(), new NumberGuessPlayer());
                         }
                         //else if (gameSelectionInput.equals("BLACKJACK")) {
@@ -45,6 +56,15 @@ public class Casino implements Runnable {
                         //}
                     else if (gameSelectionInput.equals("CRAPS")) {
                             play(new CrapsGame(), new CrapsPlayer(casinoAccount));
+
+                            play(new NumberGuessGame(casinoAccount, null), new NumberGuessPlayer(casinoAccount));
+                        } else if (gameSelectionInput.equals("BLACKJACK")) {
+                            play(new Blackjack(casinoAccount, null), new BlackjackPlayer(casinoAccount));
+                        } else if (gameSelectionInput.equals("BINGO")) {
+                            play(new Bingo(), new BingoPlayer(casinoAccount));
+                        } else if (gameSelectionInput.equals("ROULETTE")) {
+                            play(new RouletteGame(casinoAccount, null), new RoulettePlayer(casinoAccount));
+
                         } else if (gameSelectionInput.equals("EXIT")) {
                             break;
                         } else {
@@ -81,7 +101,11 @@ public class Casino implements Runnable {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Game Selection Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
+
                 .append("\n\t[ SLOTS ], [ NUMBERGUESS ], [ BLACKJACK ], [ CRAPS ], [ EXIT ]")
+
+                .append("\n\t[ SLOTS ], [ NUMBERGUESS ], [ BLACKJACK ], [BINGO], [ROULETTE], [EXIT]")
+
                 .toString());
     }
 
@@ -91,5 +115,8 @@ public class Casino implements Runnable {
         game.add(player);
         game.run();
     }
+
+
+}
 
 }
