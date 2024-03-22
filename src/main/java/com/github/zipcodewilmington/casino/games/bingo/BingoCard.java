@@ -11,6 +11,14 @@ public class BingoCard {
     BingoBoard initializedboard = new BingoBoard();
 
 
+    public String[][] getMarkedCard() {
+        return markedCard;
+    }
+
+    public Integer[][] getBingoCard() {
+        return bingoCard;
+    }
+
     public BingoCard() {
         this.bingoCard = new Integer[BOARD_SIZE][BOARD_SIZE];
         this.markedCard = new String[BOARD_SIZE][BOARD_SIZE];
@@ -33,6 +41,7 @@ public class BingoCard {
             }
 
         }
+
         //Marking free space
         markNumber(0);
     }
@@ -62,12 +71,7 @@ public class BingoCard {
                 return true;
             }
         }
-//        // Checking columns
-//        for (int i = 0; i < BOARD_SIZE; i++) {
-//            if (this.markedCard[0][i] == "⭐️" && this.markedCard[1][i] == "⭐️" && this.markedCard[2][i] == "⭐️" && this.markedCard[3][i] == "⭐️" && this.markedCard[4][i] == "⭐️") {
-//                return true;
-//            }
-//        }
+
         // Checking Diagonally
         if (this.markedCard[0][0] == "⭐️" && this.markedCard[1][1] == "⭐️" && this.markedCard[2][2] == "⭐️" && this.markedCard[3][3] == "⭐️" && this.markedCard[4][4] == "⭐️") {
             return true;

@@ -9,7 +9,6 @@ public class Bingo implements GameInterface {
     //private ArrayList<Integer> answerList;
     private ArrayList<BingoPlayer> playerList;
     Random rand = new Random();
-    BingoCard card = new BingoCard();
     BingoBoard bingoBoard = new BingoBoard();
 
 
@@ -18,9 +17,7 @@ public class Bingo implements GameInterface {
         playerList = new ArrayList<>();
 
     }
-    public void addPlayer(BingoPlayer player){
-        playerList.add(player);
-    }
+
     public Integer announceNumber(){
         Integer nextNumber = rand.nextInt(75)+1;
         while (bingoBoard.checkNumber(nextNumber)) {
@@ -36,15 +33,15 @@ public class Bingo implements GameInterface {
     }
 
 
-    public boolean checkWinner(){
-        for(BingoPlayer bPlayer :playerList){
-            if(bPlayer.getBingoCard().checkBingo()){
-                System.out.println("Congrats " + bPlayer.getName() + " you have won!!!");
-                return true;
-            }
-        }
-        return false;
-    }
+//    public boolean checkWinner(){
+//        for(BingoPlayer bPlayer :playerList){
+//            if(bPlayer.getBingoCard().checkBingo()){
+//                System.out.println("Congrats " + bPlayer.getName() + " you have won!!!");
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
 //    public void run() {
 //        Bingo bingoGame = new Bingo();
@@ -65,18 +62,13 @@ public class Bingo implements GameInterface {
 //    }
 
     public void run() {
-        //Bingo bingoGame = new Bingo();
-        //bingoGame.addPlayer(player2);
-        while(this.checkWinner()!= true){
+
+        while(this.getWinner()!= true){
             Integer calledNumber = this.announceNumber();
             System.out.println("Called Number: "+ calledNumber);
             for(BingoPlayer bPlayer :playerList){
                 System.out.println(bPlayer.getBingoCard());
             }
-            //System.out.println(player1.getBingoCard());
-            //System.out.println(player2.getBingoCard());
-            //Scanner sc = new Scanner(System.in);
-            //String userInput = sc.next();
         }
     }
 
@@ -84,7 +76,7 @@ public class Bingo implements GameInterface {
     public boolean getWinner() {
         for(BingoPlayer bPlayer :playerList){
             if(bPlayer.getBingoCard().checkBingo()){
-                System.out.println("Congrats " + bPlayer.getName() + " you have won!!!");
+                System.out.println("Congrats " + bPlayer.getName() + " you have won!!!\n");
                 return true;
             }
         }
