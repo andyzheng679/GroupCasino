@@ -1,6 +1,7 @@
 package com.github.zipcodewilmington.casino.games.Backjack;
 
 import com.github.zipcodewilmington.casino.GameInterface;
+import com.github.zipcodewilmington.casino.PlayerInterface;
 
 import java.util.Scanner;
 
@@ -90,6 +91,11 @@ public class Blackjack implements GameInterface {
         }
 
         return playerHandValue > dealerHandValue;
+    }
+
+    @Override
+    public void add(PlayerInterface player) {
+        this.player = (BlackjackPlayer) player;
     }
 }
 
