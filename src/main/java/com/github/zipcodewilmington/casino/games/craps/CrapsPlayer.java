@@ -45,7 +45,7 @@ public class CrapsPlayer implements PlayerInterface {
     public static void userInputRoll() {
         rollsDiceOption = console.getStringInput( "\n-<>-<>-<>-<>-<>-<>-<>-<>-\n" +
                 "Please Roll the dice:\n[roll]");
-        System.out.println("-<>-<>-<>-<>-<>-<>-<>-<>-\n");
+        console.println("-<>-<>-<>-<>-<>-<>-<>-<>-\n");
     }
 
     public static String secondaryWagerOption() {
@@ -65,35 +65,35 @@ public class CrapsPlayer implements PlayerInterface {
                     int repeatDiceRoll = CrapsPlayer.diceRoll();
                     int diceOne = CrapsPlayer.dieOne;
                     int diceTwo = CrapsPlayer.dieTwo;
-                    System.out.println("Dice: [" + diceOne + "] Dice: [" + diceTwo + "]");
+                    console.println("Dice: [" + diceOne + "] Dice: [" + diceTwo + "]");
 
 
                     if (CrapsGame.comeOutRoll == repeatDiceRoll && repeatDiceRoll == 4 || CrapsGame.comeOutRoll == repeatDiceRoll && repeatDiceRoll == 10) {
                         payOut = (playerPassLineBet * 2) + CrapsGame.playerBet;
                         playerBalance += payOut;
                         console.println("You rolled: " + repeatDiceRoll);
-                        System.out.println("Your first Bet: [" + CrapsGame.playerBet + "] Your second Bet: [" + playerPassLineBet + "] Your winnings: {" + payOut + "}");
+                        console.println("Your first Bet: [" + CrapsGame.playerBet + "] Your second Bet: [" + playerPassLineBet + "] Your winnings: {" + payOut + "}");
                         // if dice is 4 or 10
                         break;
                     } else if (CrapsGame.comeOutRoll == repeatDiceRoll && repeatDiceRoll == 5 || CrapsGame.comeOutRoll == repeatDiceRoll && repeatDiceRoll == 9) {
                         payOut += (playerPassLineBet * 1.5) + CrapsGame.playerBet;
                         playerBalance += payOut;
                         console.println("You rolled: " + repeatDiceRoll);
-                        System.out.println("Your first Bet: [" + CrapsGame.playerBet + "] Your second Bet: [" + playerPassLineBet + "] Your winnings: {" + payOut + "}");
+                        console.println("Your first Bet: [" + CrapsGame.playerBet + "] Your second Bet: [" + playerPassLineBet + "] Your winnings: {" + payOut + "}");
                         // if dice is 5 or 9
                         break;
                     } else if (CrapsGame.comeOutRoll == repeatDiceRoll && repeatDiceRoll == 6 || CrapsGame.comeOutRoll == repeatDiceRoll && repeatDiceRoll == 8) {
                         payOut += (playerPassLineBet * 1.2) + CrapsGame.playerBet;
                         playerBalance += payOut;
                         console.println("You rolled: " + repeatDiceRoll);
-                        System.out.println("Your first Bet: [" + CrapsGame.playerBet + "] Your second Bet: [" + playerPassLineBet + "] Your winnings: {" + payOut + "}");
+                        console.println("Your first Bet: [" + CrapsGame.playerBet + "] Your second Bet: [" + playerPassLineBet + "] Your winnings: {" + payOut + "}");
                         // if dice is 6 or 8
                         break;
                     } else if (repeatDiceRoll == CrapsGame.comeOutRoll) {
                         payOut += CrapsGame.playerBet + CrapsGame.playerBet;
                         playerBalance += payOut;
                         console.println("You rolled: " + repeatDiceRoll);
-                        System.out.println("Your first Bet: [" + CrapsGame.playerBet + "] Your winnings: {" + payOut + "}");
+                        console.println("Your first Bet: [" + CrapsGame.playerBet + "] Your winnings: {" + payOut + "}");
                         break;
                     } else if (repeatDiceRoll == 7) {
                         payOut += CrapsGame.playerBet + playerPassLineBet;
@@ -124,34 +124,34 @@ public class CrapsPlayer implements PlayerInterface {
                     int repeatDiceRoll = CrapsPlayer.diceRoll();
                     int diceOne = CrapsPlayer.dieOne;
                     int diceTwo = CrapsPlayer.dieTwo;
-                    System.out.println("Dice: [" + diceOne + "] Dice: [" + diceTwo + "]");
+                    console.println("Dice: [" + diceOne + "] Dice: [" + diceTwo + "]");
 
                     if (pointNumber == repeatDiceRoll && pointNumber == 4 || pointNumber == repeatDiceRoll && pointNumber == 10) {
                         payOut += (playerPointBet * 2) + CrapsGame.playerBet;
                         playerBalance += payOut;
                         console.println("You rolled: " + repeatDiceRoll);
-                        System.out.println("Your first Bet: [" + CrapsGame.playerBet + "] Your second Bet: [" + playerPointBet + "] Your winnings: {" + payOut + "}");
+                        console.println("Your first Bet: [" + CrapsGame.playerBet + "] Your second Bet: [" + playerPointBet + "] Your winnings: {" + payOut + "}");
                         break;
                         // if dice is 4 or 10
                     } else if (pointNumber == repeatDiceRoll && pointNumber == 5 || pointNumber == repeatDiceRoll && pointNumber == 9) {
                         payOut += (playerPointBet * 1.5) + CrapsGame.playerBet;
                         playerBalance += payOut;
                         console.println("You rolled: " + repeatDiceRoll);
-                        System.out.println("Your first Bet: [" + CrapsGame.playerBet + "] Your second Bet: [" + playerPointBet + "] Your winnings: {" + payOut + "}");
+                        console.println("Your first Bet: [" + CrapsGame.playerBet + "] Your second Bet: [" + playerPointBet + "] Your winnings: {" + payOut + "}");
                         break;
                         // if dice is 5 or 9
                     } else if (pointNumber == repeatDiceRoll && pointNumber == 6 || pointNumber == repeatDiceRoll && pointNumber == 8) {
                         payOut += (playerPointBet * 1.2) + CrapsGame.playerBet;
                         playerBalance += payOut;
                         console.println("You rolled: " + repeatDiceRoll);
-                        System.out.println("Your first Bet: [" + CrapsGame.playerBet + "] Your second Bet: [" + playerPointBet + "] Your winnings: {" + payOut + "}");
+                        console.println("Your first Bet: [" + CrapsGame.playerBet + "] Your second Bet: [" + playerPointBet + "] Your winnings: {" + payOut + "}");
                         break;
                         // if dice is 6 or 8
                     } else if (repeatDiceRoll == CrapsGame.comeOutRoll) {
                         payOut += CrapsGame.playerBet + CrapsGame.playerBet;
                         playerBalance += payOut;
                         console.println("You rolled: " + repeatDiceRoll);
-                        System.out.println("Your first Bet: [" + CrapsGame.playerBet + "] Your winnings: {" + payOut +"}");
+                        console.println("Your first Bet: [" + CrapsGame.playerBet + "] Your winnings: {" + payOut +"}");
                         break;
                     } else if (repeatDiceRoll == 7) {
                         payOut += CrapsGame.playerBet + playerPassLineBet;

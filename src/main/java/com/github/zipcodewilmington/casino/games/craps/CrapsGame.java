@@ -52,11 +52,11 @@ public class CrapsGame implements GameInterface {
             comeOutRoll = CrapsPlayer.diceRoll();
             int diceOne = CrapsPlayer.dieOne;
             int diceTwo = CrapsPlayer.dieTwo;
-            System.out.println("Dice: [" + diceOne + "] Dice: [" + diceTwo + "]");
-            System.out.println("You rolled a {" + comeOutRoll + "}\n");
+            console.println("Dice: [" + diceOne + "] Dice: [" + diceTwo + "]");
+            console.println("You rolled a {" + comeOutRoll + "}\n");
         }
         if (playerBet < 10) {
-            System.out.println("You can't wager less then $10.");
+            console.println("You can't wager less then $10.");
             comeOutRoll();
         }
         return 0;
@@ -84,7 +84,7 @@ public class CrapsGame implements GameInterface {
 
     public static void pointRoll() {
         if (comeOutRoll == 4 || comeOutRoll == 5 || comeOutRoll == 6 || comeOutRoll == 8 || comeOutRoll == 9 || comeOutRoll == 10) {
-            System.out.println("You rolled a point number!");
+            console.println("You rolled a point number!");
 
             CrapsPlayer.secondaryWagerOption();
             CrapsPlayer.secondaryWager();
@@ -142,12 +142,12 @@ public class CrapsGame implements GameInterface {
             repeatDiceRoll = CrapsPlayer.diceRoll();
             int diceOne = CrapsPlayer.dieOne;
             int diceTwo = CrapsPlayer.dieTwo;
-            System.out.println("Dice: [" + diceOne + "] Dice: [" + diceTwo + "]");
+            console.println("Dice: [" + diceOne + "] Dice: [" + diceTwo + "]");
 
             if (repeatDiceRoll == comeOutRoll) {
                 CrapsPlayer.payOut += playerBet + playerBet;
                 CrapsPlayer.playerBalance += CrapsPlayer.payOut;
-                System.out.println("Your first Bet: " + playerBet + " Your winnings: " + CrapsPlayer.playerBalance);
+                console.println("Your first Bet: " + playerBet + " Your winnings: " + CrapsPlayer.playerBalance);
                 break;
             } else if (repeatDiceRoll == 7) {
                 CrapsPlayer.payOut += playerBet;
