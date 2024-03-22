@@ -18,12 +18,11 @@ public interface GameInterface extends Runnable {
      */
     //void remove(PlayerInterface player);
 
-    /**
-     * specifies how the game will run
-     */
     void run();
 
     boolean getWinner();
 
+
     void add(PlayerInterface player);
+
 }

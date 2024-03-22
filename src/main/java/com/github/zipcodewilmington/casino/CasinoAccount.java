@@ -34,4 +34,9 @@ public class CasinoAccount {
     }
 
     public void setAccountBalance(double accountBalance) {this.accountBalance = accountBalance;}
+
 }
+
+
+}
+

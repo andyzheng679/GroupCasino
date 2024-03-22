@@ -1,4 +1,7 @@
 package com.github.zipcodewilmington.casino;
+import com.github.zipcodewilmington.utils.AnsiColor;
+import com.github.zipcodewilmington.utils.IOConsole;
+import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +16,10 @@ public class CasinoAccountManager {
      * @param accountPassword password of account to be returned
      * @return `ArcadeAccount` with specified `accountName` and `accountPassword`
      */
+
+    private final IOConsole console = new IOConsole(AnsiColor.BLUE);
+
+    private ArrayList<CasinoAccount> accountList;
 
     private List<CasinoAccount> accountList;
 
