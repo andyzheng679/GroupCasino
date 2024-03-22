@@ -9,6 +9,9 @@ import com.github.zipcodewilmington.utils.IOConsole;
 
 public class CrapsGame implements GameInterface {
     private static final IOConsole console = new IOConsole(AnsiColor.CYAN);
+    private static final IOConsole white = new IOConsole(AnsiColor.WHITE);
+    private static final IOConsole red = new IOConsole(AnsiColor.RED);
+    private static final IOConsole purple = new IOConsole(AnsiColor.PURPLE);
     public static int comeOutRoll;
     public static int repeatDiceRoll;
     public static double playerBet;
@@ -52,8 +55,8 @@ public class CrapsGame implements GameInterface {
             comeOutRoll = CrapsPlayer.diceRoll();
             int diceOne = CrapsPlayer.dieOne;
             int diceTwo = CrapsPlayer.dieTwo;
-            console.println("Dice: [" + diceOne + "] Dice: [" + diceTwo + "]");
-            console.println("You rolled a {" + comeOutRoll + "}\n");
+            red.println("Dice: [" + diceOne + "] Dice: [" + diceTwo + "]");
+            red.println("You rolled a {" + comeOutRoll + "}\n");
         }
         if (playerBet < 10) {
             console.println("You can't wager less then $10.");
@@ -74,17 +77,16 @@ public class CrapsGame implements GameInterface {
 
     public static boolean losingRoll() {
         if (comeOutRoll == 2 || comeOutRoll == 3 || comeOutRoll == 12 || repeatDiceRoll == 7 && comeOutRoll != 7) {
-            CrapsPlayer.payOut -= playerBet;
-            CrapsPlayer.playerBalance += CrapsPlayer.payOut;
-            console.println("You lost! [You lost: " + CrapsPlayer.payOut + "]");
-            return playerLoses = true;
+            CrapsPlayer.payOut += playerBet;
+            CrapsPlayer.playerBalance -= CrapsPlayer.payOut;
+            console.println("You rolled a {" + repeatDiceRoll + "}\n You lost! [You lost: " + CrapsPlayer.payOut + "]");
         }
         return false;
     }
 
     public static void pointRoll() {
         if (comeOutRoll == 4 || comeOutRoll == 5 || comeOutRoll == 6 || comeOutRoll == 8 || comeOutRoll == 9 || comeOutRoll == 10) {
-            console.println("You rolled a point number!");
+            red.println("You rolled a point number!");
 
             CrapsPlayer.secondaryWagerOption();
             CrapsPlayer.secondaryWager();
@@ -120,7 +122,7 @@ public class CrapsGame implements GameInterface {
     */
 
     public static void diceImage() {
-        System.out.println(
+        white.println(
                 "               (( _______\n" +
                         "     _______     /\\O    O\\\n" +
                         "    /O     /\\   /  \\      \\\n" +
@@ -142,7 +144,7 @@ public class CrapsGame implements GameInterface {
             repeatDiceRoll = CrapsPlayer.diceRoll();
             int diceOne = CrapsPlayer.dieOne;
             int diceTwo = CrapsPlayer.dieTwo;
-            console.println("Dice: [" + diceOne + "] Dice: [" + diceTwo + "]");
+            red.println("Dice: [" + diceOne + "] Dice: [" + diceTwo + "]");
 
             if (repeatDiceRoll == comeOutRoll) {
                 CrapsPlayer.payOut += playerBet + playerBet;
@@ -150,13 +152,11 @@ public class CrapsGame implements GameInterface {
                 console.println("Your first Bet: " + playerBet + " Your winnings: " + CrapsPlayer.playerBalance);
                 break;
             } else if (repeatDiceRoll == 7) {
-                CrapsPlayer.payOut += playerBet;
-                CrapsPlayer.playerBalance -= CrapsPlayer.payOut;
-                console.println("You rolled a {" + repeatDiceRoll + "}\n You lost! [You lost: " + CrapsPlayer.payOut + "]");
                 break;
+
             } else if (repeatDiceRoll != 7 || repeatDiceRoll != comeOutRoll) {
 
-                console.println(
+                red.println(
                         "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" +
                                 "You rolled a {" + repeatDiceRoll + "} which is not {" + comeOutRoll + "} or 7, Roll again." +
                                 "\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
@@ -173,7 +173,9 @@ public class CrapsGame implements GameInterface {
     public void run() {
         do {
             gameStart();
-            String playAgain = console.getStringInput("Would you like to play again? (yes/no)");
+            String playAgain = purple.getStringInput("\n-=--==--==--==--==--==--=--==--==--==-\n" +
+                                                             "Would you like to play again? (yes/no)" +
+                                                             "\n-=--==--==--==--==--==--=--==--==--==-").toLowerCase();
             if (!playAgain.equalsIgnoreCase("yes")) {
                 break;
             }
