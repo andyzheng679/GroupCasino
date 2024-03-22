@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BlackjackPlayer implements PlayerInterface {
-    ArrayList<Cards> playerHand;    //make arraylist of Cards
-    //ArrayList<Cards> splitHand;     // used for split
+    public ArrayList<Cards> playerHand;    //make arraylist of Cards
+    public ArrayList<Cards> splitHand;     // used for split
     int handValue;      //keeps tracks of hand
     private Scanner scanner;
     private CasinoAccount arcadeAccount;
+
     //private final IOConsole console = new IOConsole(AnsiColor.BLUE);
 
     //constructor
@@ -24,12 +25,20 @@ public class BlackjackPlayer implements PlayerInterface {
     }
 
     public BlackjackPlayer(CasinoAccount arcadeAccount) {
+
         this.arcadeAccount = arcadeAccount;
     }
 
     @Override
     public CasinoAccount getArcadeAccount() {
         return arcadeAccount;
+    }
+
+    //testing
+    public BlackjackPlayer(Scanner scanner) {
+        this.playerHand = new ArrayList<>();
+        this.handValue = 0;
+        this.scanner = scanner;
     }
 
     //sum hand, checks for ace cards
@@ -78,64 +87,64 @@ public class BlackjackPlayer implements PlayerInterface {
     }
 
 
-//    public boolean doubleDown(){
-//        System.out.println("Do you want to double down? 'Y', 'N': ");
-//        boolean validInput = false;
-//        boolean doTheyDouble = false;
-//
-//        while (!validInput){
-//            String userInput = scanner.nextLine().toUpperCase();
-//            if (userInput.equals("Y")){
-//                validInput = true;
-//                doTheyDouble = true;
-//            } else if (userInput.equals("N")) {
-//                validInput = true;
-//            }
-//        }
-//        return doTheyDouble;
-//    }
+    public boolean doubleDown(){
+        System.out.println("Do you want to double down? 'Y', 'N': ");
+        boolean validInput = false;
+        boolean doTheyDouble = false;
 
-//    public boolean split(){
-//        if(playerHand.size() == 2 && playerHand.get(0).getValue() == playerHand.get(1).getValue()){
-//            System.out.println("Your cards can be split, do you want to split, 'Y', 'N': ");
-//
-//            while(true){
-//                String userInput = scanner.nextLine().toUpperCase();
-//
-//                if(userInput.equals("Y")){
-//                    if (splitHand == null){
-//                        splitHand = new ArrayList<>();
-//                    }else {
-//                        splitHand.clear();
-//                    }
-//                    splitHand.add(playerHand.remove(1));
-//
-//                    return true;
-//                } else if (userInput.equals("N")) {
-//                    return false;
-//                }else {
-//                    System.out.println("Not a valid input, enter 'Y'/ 'N': ");
-//                }
-//            }
-//        }else {
-//            System.out.println("Can't split these cards.");
-//            return false;
-//        }
-//    }
+        while (!validInput){
+            String userInput = scanner.nextLine().toUpperCase();
+            if (userInput.equals("Y")){
+                validInput = true;
+                doTheyDouble = true;
+            } else if (userInput.equals("N")) {
+                validInput = true;
+            }
+        }
+        return doTheyDouble;
+    }
 
-//    public boolean surrender(){
-//        System.out.println("Would you like to surrender? 'Y'/ 'N': ");
-//        while (true){
-//            String userInput = scanner.nextLine().toUpperCase();
-//            if(userInput.equals("Y")){
-//                return true;
-//            } else if (userInput.equals("N")) {
-//                return false;
-//            }else {
-//                System.out.println("Invalid input.");
-//            }
-//        }
-//    }
+    public boolean split(){
+        if(playerHand.size() == 2 && playerHand.get(0).getValue() == playerHand.get(1).getValue()){
+            System.out.println("Your cards can be split, do you want to split, 'Y', 'N': ");
+
+            while(true){
+                String userInput = scanner.nextLine().toUpperCase();
+
+                if(userInput.equals("Y")){
+                    if (splitHand == null){
+                        splitHand = new ArrayList<>();
+                    }else {
+                        splitHand.clear();
+                    }
+                    splitHand.add(playerHand.remove(1));
+
+                    return true;
+                } else if (userInput.equals("N")) {
+                    return false;
+                }else {
+                    System.out.println("Not a valid input, enter 'Y'/ 'N': ");
+                }
+            }
+        }else {
+            System.out.println("Can't split these cards.");
+            return false;
+        }
+    }
+
+    public boolean surrender(){
+        System.out.println("Would you like to surrender? 'Y'/ 'N': ");
+        while (true){
+            String userInput = scanner.nextLine().toUpperCase();
+            if(userInput.equals("Y")){
+                return true;
+            } else if (userInput.equals("N")) {
+                return false;
+            }else {
+                System.out.println("Invalid input.");
+            }
+        }
+    }
 
     public void dealerAction(DeckofCards deck) {
 

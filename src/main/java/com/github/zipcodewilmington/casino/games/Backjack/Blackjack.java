@@ -1,19 +1,21 @@
 package com.github.zipcodewilmington.casino.games.Backjack;
 
+import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.GameInterface;
 
 import java.util.Scanner;
 
 public class Blackjack implements GameInterface {
 
-    private BlackjackPlayer player;
-    private BlackjackPlayer dealer;
+    public BlackjackPlayer player;
+    public BlackjackPlayer dealer;
     private DeckofCards deck;
 
     public Blackjack(){
         this.player = new BlackjackPlayer();
         this.dealer = new BlackjackPlayer();
         this.deck = new DeckofCards();
+
     }
 
     @Override
