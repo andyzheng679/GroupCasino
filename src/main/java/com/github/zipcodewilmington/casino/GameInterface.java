@@ -14,10 +14,10 @@ public interface GameInterface extends Runnable {
      * removes a player from the game
      * @param player the player to be removed from the game
      */
-    void remove(PlayerInterface player);
+    //void remove(PlayerInterface player);
 
-    /**
-     * specifies how the game will run
-     */
     void run();
+
+    boolean getWinner();
+
 }

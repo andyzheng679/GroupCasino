@@ -4,6 +4,8 @@ import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.CasinoAccountManager;
 import com.github.zipcodewilmington.casino.GameInterface;
 import com.github.zipcodewilmington.casino.PlayerInterface;
+//import com.github.zipcodewilmington.casino.games.Backjack.Blackjack;
+//import com.github.zipcodewilmington.casino.games.Backjack.BlackjackPlayer;
 import com.github.zipcodewilmington.casino.games.craps.CrapsGame;
 import com.github.zipcodewilmington.casino.games.craps.CrapsPlayer;
 import com.github.zipcodewilmington.casino.games.numberguess.NumberGuessGame;
@@ -31,18 +33,27 @@ public class Casino implements Runnable {
                 CasinoAccount casinoAccount = casinoAccountManager.getAccount(accountName, accountPassword);
                 boolean isValidLogin = casinoAccount != null;
                 if (isValidLogin) {
-                    String gameSelectionInput = getGameSelectionInput().toUpperCase();
-                    if (gameSelectionInput.equals("SLOTS")) {
-                        play(new SlotsGame(), new SlotsPlayer());
-                    } else if (gameSelectionInput.equals("NUMBERGUESS")) {
-                        play(new NumberGuessGame(), new NumberGuessPlayer());
-                    } else if (gameSelectionInput.equals("CRAPS")) {
-                        play(new CrapsGame(), new CrapsPlayer());
-                    } else {
-                        // TODO - implement better exception handling
-                        String errorMessage = "[ %s ] is an invalid game selection";
-                        throw new RuntimeException(String.format(errorMessage, gameSelectionInput));
+                    while (true){
+                        String gameSelectionInput = getGameSelectionInput().toUpperCase();
+                        if (gameSelectionInput.equals("SLOTS")) {
+                            play(new SlotsGame(), new SlotsPlayer());
+                        } else if (gameSelectionInput.equals("NUMBERGUESS")) {
+                            play(new NumberGuessGame(), new NumberGuessPlayer());
+                        }
+                        //else if (gameSelectionInput.equals("BLACKJACK")) {
+                            //play(new Blackjack(casinoAccount, null), new BlackjackPlayer(casinoAccount));
+                        //}
+                    else if (gameSelectionInput.equals("CRAPS")) {
+                            play(new CrapsGame(), new CrapsPlayer(casinoAccount));
+                        } else if (gameSelectionInput.equals("EXIT")) {
+                            break;
+                        } else {
+                            // TODO - implement better exception handling
+                            String errorMessage = "[ %s ] is an invalid game selection";
+                            throw new RuntimeException(String.format(errorMessage, gameSelectionInput));
+                        }
                     }
+
                 } else {
                     // TODO - implement better exception handling
                     String errorMessage = "No account found with name of [ %s ] and password of [ %s ]";
@@ -66,18 +77,19 @@ public class Casino implements Runnable {
                 .toString());
     }
 
-    public String getGameSelectionInput() {
+    private String getGameSelectionInput() {
         return console.getStringInput(new StringBuilder()
                 .append("Welcome to the Game Selection Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
-                .append("\n\t[ SLOTS ], [ NUMBERGUESS ], [ CRAPS ]")
+                .append("\n\t[ SLOTS ], [ NUMBERGUESS ], [ BLACKJACK ], [ CRAPS ], [ EXIT ]")
                 .toString());
     }
 
     private void play(Object gameObject, Object playerObject) {
-        GameInterface game = (GameInterface)gameObject;
-        PlayerInterface player = (PlayerInterface)playerObject;
+        GameInterface game = (GameInterface) gameObject;
+        PlayerInterface player = (PlayerInterface) playerObject;
         game.add(player);
         game.run();
     }
+
 }

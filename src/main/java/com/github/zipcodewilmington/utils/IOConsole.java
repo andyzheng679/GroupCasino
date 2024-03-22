@@ -38,7 +38,7 @@ public class IOConsole {
 
     public String getStringInput(String prompt, Object... args) {
         println(prompt, args);
-        return input.nextLine().toUpperCase();
+        return input.nextLine();
     }
 
     public Double getDoubleInput(String prompt, Object... args) {
