@@ -24,4 +24,6 @@ public interface GameInterface extends Runnable {
     void run();
 
     boolean getWinner();
+
+    void add(PlayerInterface player);
 }

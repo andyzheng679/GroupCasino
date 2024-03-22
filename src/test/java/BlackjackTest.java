@@ -109,7 +109,7 @@ public class BlackjackTest {
     public void testHitOrStandHit() {
         String input = "hit\n";
         Scanner scanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        BlackjackPlayer player = new BlackjackPlayer(scanner); 
+        BlackjackPlayer player = new BlackjackPlayer(scanner);
 
         // Execute & Assert
         Assert.assertTrue(player.hitOrStand(scanner));
