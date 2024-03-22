@@ -7,6 +7,7 @@ public class PocketTest {
     @Test // testing number and color of pocket
     public void testPocket() {
         Pocket pocket = new Pocket(1, "Red");
+
         assertEquals(1, pocket.getNumber());
         assertEquals("Red", pocket.getColor());
     }
