@@ -8,7 +8,7 @@ public class CasinoAccount {
     public CasinoAccount(String accountName, String accountPassword) {
         this.accountName = accountName;
         this.accountPassword = accountPassword;
-        accountBalance = 500.00;
+        accountBalance = 0.00;
     }
 
     public boolean depositToBalance(double deposit) {
