@@ -6,9 +6,11 @@ import com.github.zipcodewilmington.casino.PlayerInterface;
 public class BingoPlayer implements PlayerInterface {
     private String name;
     private BingoCard bingocard;
+    private CasinoAccount arcadeAccount;
 
-    public BingoPlayer(String name) {
-        this.name = name;
+    public BingoPlayer(CasinoAccount arcadeAccount) {
+        this.arcadeAccount = arcadeAccount;
+        this.name = arcadeAccount.getAccountName();
         this.bingocard = new BingoCard();
     }
 
@@ -26,7 +28,7 @@ public class BingoPlayer implements PlayerInterface {
 
     @Override
     public CasinoAccount getArcadeAccount() {
-        return null;
+        return arcadeAccount;
     }
 
 
