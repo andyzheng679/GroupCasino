@@ -41,15 +41,15 @@ public class NumberGuessGame implements GameInterface {
                 "⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⣦⠀⠀⠀⠀⠀⠀\n" +
                 "⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⠟⠀⠀⠀⠀⠀⠀\n" +
                 "⠀⠀⠀⠀⠀⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀");
-        System.out.println("Feeling lucky? Ok, I'm thinking of a number between 0 and 10");
+        System.out.println("Feeling lucky?? Ok, I'm thinking of a number between 0 and 10");
         while (true) {
             System.out.println("Enter your guess :");
             int input = scanner.nextInt();
 
             if (input > randomGuess) {
-                System.out.println("Your guess is too high.");
+                System.out.println("Your guess is too high..");
             } else if (input < randomGuess) {
-                System.out.println("Your guess is too low.");
+                System.out.println("Your guess is too low..");
             } else {
                 System.out.println("Congratulations! You guessed the correct number.");
                 break;
