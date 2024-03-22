@@ -7,8 +7,7 @@ import java.util.Scanner;
 /**
  * Created by leon on 7/21/2020.
  */
-public class NumberGuessGame {
-}
+
 
 import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.GameInterface;

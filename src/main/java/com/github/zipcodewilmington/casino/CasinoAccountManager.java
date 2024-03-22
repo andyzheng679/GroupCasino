@@ -21,7 +21,7 @@ public class CasinoAccountManager {
 
     private ArrayList<CasinoAccount> accountList;
 
-    private List<CasinoAccount> accountList;
+    //private List<CasinoAccount> accountList;
 
     public CasinoAccountManager() {
         this.accountList = new ArrayList<>();

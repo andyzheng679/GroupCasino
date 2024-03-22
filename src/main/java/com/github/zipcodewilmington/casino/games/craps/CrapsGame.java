@@ -17,7 +17,7 @@ public class CrapsGame implements GameInterface {
     public static double playerBet;
     public static boolean playerWins = false;
     public static boolean playerLoses = false;
-    public static double userBalance = 500;
+
 
     public static void gameStart() {    // temporary
 
@@ -87,6 +87,7 @@ public class CrapsGame implements GameInterface {
     public static void pointRoll() {
         if (comeOutRoll == 4 || comeOutRoll == 5 || comeOutRoll == 6 || comeOutRoll == 8 || comeOutRoll == 9 || comeOutRoll == 10) {
             red.println("You rolled a point number!");
+            red.println("[Point Numbers: {4,5,6,8,9,10}]");
 
             CrapsPlayer.secondaryWagerOption();
             CrapsPlayer.secondaryWager();

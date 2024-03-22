@@ -1,3 +1,5 @@
+package com.github.zipcodewilmington;
+
 import com.github.zipcodewilmington.casino.CasinoAccount;
 import com.github.zipcodewilmington.casino.games.Backjack.Blackjack;
 import com.github.zipcodewilmington.casino.games.Backjack.BlackjackPlayer;

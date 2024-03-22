@@ -49,15 +49,9 @@ public class Casino implements Runnable {
                             play(new SlotsGame(), new SlotsPlayer());
                         } else if (gameSelectionInput.equals("NUMBERGUESS")) {
 
-                            play(new NumberGuessGame(), new NumberGuessPlayer());
-                        }
-                        //else if (gameSelectionInput.equals("BLACKJACK")) {
-                            //play(new Blackjack(casinoAccount, null), new BlackjackPlayer(casinoAccount));
-                        //}
-                    else if (gameSelectionInput.equals("CRAPS")) {
-                            play(new CrapsGame(), new CrapsPlayer(casinoAccount));
-
                             play(new NumberGuessGame(casinoAccount, null), new NumberGuessPlayer(casinoAccount));
+                        } else if (gameSelectionInput.equals("CRAPS")) {
+                            play(new CrapsGame(), new CrapsPlayer(casinoAccount));
                         } else if (gameSelectionInput.equals("BLACKJACK")) {
                             play(new Blackjack(casinoAccount, null), new BlackjackPlayer(casinoAccount));
                         } else if (gameSelectionInput.equals("BINGO")) {
@@ -102,9 +96,8 @@ public class Casino implements Runnable {
                 .append("Welcome to the Game Selection Dashboard!")
                 .append("\nFrom here, you can select any of the following options:")
 
-                .append("\n\t[ SLOTS ], [ NUMBERGUESS ], [ BLACKJACK ], [ CRAPS ], [ EXIT ]")
 
-                .append("\n\t[ SLOTS ], [ NUMBERGUESS ], [ BLACKJACK ], [BINGO], [ROULETTE], [EXIT]")
+                .append("\n\t[ SLOTS ], [ NUMBERGUESS ], [ BLACKJACK ], [ BINGO ], [ ROULETTE ], [ CRAPS ], [ EXIT ]")
 
                 .toString());
     }
@@ -119,4 +112,3 @@ public class Casino implements Runnable {
 
 }
 
-}

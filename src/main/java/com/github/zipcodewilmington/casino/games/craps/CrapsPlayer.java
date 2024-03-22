@@ -18,7 +18,7 @@ public class CrapsPlayer implements PlayerInterface {
     public static double playerPointBet;
     public static double playerPassLineBet;
     public static int pointNumber;
-    public static double playerBalance = CrapsGame.userBalance;
+    public static double playerBalance = 500.00;
     public static double payOut;
     private CasinoAccount arcadeAccount;
     private static final IOConsole console = new IOConsole(AnsiColor.CYAN);
